@@ -29,22 +29,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    var MyLat: Double = 0.0
-    var MyLong: Double = 0.0
-
-    //    var CITY:String = "Jaipur,ind"
+    var MyLat:Double = 0.0
+    var MyLong:Double = 0.0
     private var CITY: String = ""
-    val API: String = "d9ee6ccb2d340f413af8fe047c2fbf01"
+    val API: String = "1600e7751d62b47e1535d2ee5442c724"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        val message = intent.getStringExtra("city")
-        CITY = message.toString()
-//        checkLocationPermission()
-        weatherask().execute()
+        checkLocationPermission()
 
     }
 
@@ -76,18 +71,16 @@ class MainActivity : AppCompatActivity() {
                 MyLong = it.longitude
                 val geocoder = Geocoder(this, Locale.getDefault())
                 val addresses: List<Address>? = geocoder.getFromLocation(MyLat, MyLong, 1)
-//                CITY = addresses!![0].getAddressLine(0)
-//                val address = addresses[0].getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
                 CITY = addresses!![0].locality
                 Log.d("TAG", CITY)
                 weatherask().execute()
             }
         }
-
     }
 
     @SuppressLint("StaticFieldLeak")
-    inner class weatherask() : AsyncTask<String, Void, String>() {
+    inner class weatherask() : AsyncTask<String, Void, String>()
+    {
         override fun onPreExecute() {
             super.onPreExecute()
             findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
@@ -99,14 +92,11 @@ class MainActivity : AppCompatActivity() {
         override fun doInBackground(vararg p0: String?): String? {
 
             //currentCordinates()
-            var response: String? = try {
+            var response:String? = try{
                 URL("https://api.openweathermap.org/data/2.5/weather?q=$CITY&units=metric&appid=$API").readText(
-                    Charsets.UTF_8
-                )
-//                URL("https://api.openweathermap.org/data/2.5/onecall?lat=${laT}&lon=${lonG}&units=metric&appid={API key}").readText(
-//                    Charsets.UTF_8
-//                )
-            } catch (e: Exception) {
+                    Charsets.UTF_8)
+
+            } catch(e : Exception) {
                 null
             }
 
@@ -123,23 +113,20 @@ class MainActivity : AppCompatActivity() {
                 val wind = jsonObj.getJSONObject("wind")
                 val weather = jsonObj.getJSONArray("weather").getJSONObject(0)
 
-                val updatedAt: Long = jsonObj.getLong("dt")
-                val updatedAtText =
-                    "Updated at: " + SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(
-                        Date(updatedAt * 1000)
-                    )
-                val temp = main.getString("temp") + "°C"
-                val tempMin = "Min Temp: " + main.getString("temp_min") + "°C"
-                val tempMax = "Max Temp: " + main.getString("temp_max") + "°C"
+                val updatedAt:Long = jsonObj.getLong("dt")
+                val updatedAtText = "Updated at: "+ SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(Date(updatedAt*1000))
+                val temp = main.getString("temp")+"°C"
+                val tempMin = "Min Temp: " + main.getString("temp_min")+"°C"
+                val tempMax = "Max Temp: " + main.getString("temp_max")+"°C"
                 val pressure = main.getString("pressure")
                 val humidity = main.getString("humidity")
 
-                val sunrise: Long = sys.getLong("sunrise")
-                val sunset: Long = sys.getLong("sunset")
+                val sunrise:Long = sys.getLong("sunrise")
+                val sunset:Long = sys.getLong("sunset")
                 val windSpeed = wind.getString("speed")
                 val weatherDescription = weather.getString("description")
 
-                val address = jsonObj.getString("name") + ", " + sys.getString("country")
+                val address = jsonObj.getString("name")+", "+sys.getString("country")
 
                 binding.address.text = address
                 binding.updatedAt.text = updatedAtText
@@ -157,7 +144,9 @@ class MainActivity : AppCompatActivity() {
 
                 binding.progressBar.visibility = View.GONE
                 binding.mainContainer.visibility = View.VISIBLE
-            } catch (e: Exception) {
+            }
+            catch (e: Exception)
+            {
                 binding.progressBar.visibility = View.GONE
                 binding.errorMessage.visibility = View.VISIBLE
             }

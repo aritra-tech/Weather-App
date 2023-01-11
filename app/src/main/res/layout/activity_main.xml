@@ -43,6 +43,7 @@
             android:text="Clear Sky"
             android:textColor="@color/white"
             android:textSize="20sp"
+            app:layout_constraintHorizontal_bias="0.794"
             app:layout_constraintLeft_toLeftOf="@id/mainContainer"
             app:layout_constraintRight_toRightOf="@id/mainContainer"
             app:layout_constraintTop_toBottomOf="@id/guideline2" />
@@ -54,11 +55,13 @@
             android:text="24°C"
             android:textColor="@color/white"
             android:textSize="80sp"
+            app:layout_constraintHorizontal_bias="0.91"
             app:layout_constraintLeft_toLeftOf="@id/mainContainer"
             app:layout_constraintRight_toRightOf="@id/mainContainer"
             app:layout_constraintTop_toBottomOf="@id/status" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -71,8 +74,8 @@
                 android:id="@+id/minTemp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Min Temp"
                 android:layout_weight="1"
+                android:text="Min Temp"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -84,8 +87,8 @@
                 android:id="@+id/maxTemp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Max Temp"
                 android:layout_weight="1"
+                android:text="Max Temp"
                 android:textColor="@color/white"
                 android:textSize="18dp" />
 
@@ -99,8 +102,11 @@
             android:padding="8dp"
             android:weightSum="3"
             app:layout_constraintBottom_toTopOf="@id/detailsContainer2"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@id/mainContainer"
-            app:layout_constraintRight_toRightOf="@id/mainContainer">
+            app:layout_constraintRight_toRightOf="@id/mainContainer"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0.855">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -206,11 +212,13 @@
             android:id="@+id/detailsContainer2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginBottom="104dp"
             android:gravity="center"
+            android:orientation="horizontal"
             android:padding="8dp"
             android:weightSum="3"
             app:layout_constraintBottom_toBottomOf="@id/mainContainer"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@id/mainContainer"
             app:layout_constraintRight_toRightOf="@id/mainContainer">
 
@@ -287,7 +295,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="200dp" />
+            app:layout_constraintGuide_percent="0.19" />
 
 
 
